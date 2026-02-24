@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1771761151704,
+      "tag": "0000_majestic_invisible_woman",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1771928377399,
+      "tag": "0001_open_slayback",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1771957503793,
+      "tag": "0002_third_green_goblin",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1771964001150,
+      "tag": "0003_flowery_captain_flint",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1771968418297,
+      "tag": "0004_dry_cyclops",
+      "breakpoints": true
+    }
+  ]
+}
