@@ -45,25 +45,26 @@ export async function markFeedFetched(feedId: string) {
 
 export async function  getNextFeedToFetch(){
 
-const rseult=await db.select().from (feeds).orderBy(sql`${feeds.last_fetched_at} ASC NULLS FIRST`).limit(1);
+const [rseult]=await db.select().from (feeds).orderBy(sql`${feeds.last_fetched_at} ASC NULLS FIRST`).limit(1);
 
 return  rseult;
 }
 
 export async function scrapeFeeds() {
 
-  const feedsToScrape = await getNextFeedToFetch();
+  const feedsToScrape= await getNextFeedToFetch();
 
-  if(!feedsToScrape || feedsToScrape.length === 0){
+  if(!feedsToScrape ){
     console.log("No feeds to scrape at the moment.");
     
   }
 
 else{
+  
 
-markFeedFetched(feedsToScrape[0].id);
+ await markFeedFetched(feedsToScrape.id);
 try{
-const responce=await fetchFeed(feedsToScrape[0].url);
+const responce=await fetchFeed(feedsToScrape.url);
 
 for (const item of responce.channel.item) {
     const pubDate = item.pubDate ? new Date(item.pubDate) : null;
@@ -73,9 +74,9 @@ for (const item of responce.channel.item) {
         url: item.link,
         description: item.description || null,
         publishedAt: isNaN(pubDate?.getTime()!) ? null : pubDate,
-        feedId: feedsToScrape[0].id
+        feedId: feedsToScrape.id
     });
 }}
 catch(error){
-    console.error(`Failed to fetch or process feed ${feedsToScrape[0].url}:`, error);
+    console.error(`Failed to fetch or process feed ${feedsToScrape.url}:`, error);
 } }}
